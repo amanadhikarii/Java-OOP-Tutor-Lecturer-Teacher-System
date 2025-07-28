@@ -1,0 +1,204 @@
+public class Teacher {
+    private int TeacherID;
+    private String TeacherName;
+    private String Address;
+    private String WorkingType;
+    private String EmploymentStatus;
+    private int WorkingHours;
+
+    public Teacher(int TeacherID, String TeacherName, String Address, String WorkingType, String EmploymentStatus) {
+        this.TeacherID = TeacherID;
+        this.TeacherName = TeacherName;
+        this.Address = Address;
+        this.WorkingType = WorkingType;
+        this.EmploymentStatus = EmploymentStatus;
+        this.WorkingHours = 0;
+    }
+
+    public int getTeacherID() {
+        return TeacherID;
+    }
+
+    public String getTeacherName() {
+        return TeacherName;
+    }
+
+    public String getAddress() {
+        return Address;
+    }
+
+    public String getWorkingType() {
+        return WorkingType;
+    }
+
+    public String getEmploymentStatus() {
+        return EmploymentStatus;
+    }
+
+    public int getWorkingHours() {
+        return WorkingHours;
+    }
+
+    public void setWorkingHours(int newWorkingHours) {
+        this.WorkingHours = newWorkingHours;
+    }
+
+    public void display() {
+        System.out.println("Teacher ID: " + this.getTeacherID());
+        System.out.println("Teacher Name: " + this.getTeacherName());
+        System.out.println("Address: " + this.getAddress());
+        System.out.println("Working Type: " + this.getWorkingType());
+        System.out.println("Employment Status: " + this.getEmploymentStatus());
+        if (this.getWorkingHours() == 0) {
+            System.out.println("WorkingHours Hours not assigned.");
+        } else {
+            System.out.println("WorkingHours: " + this.getWorkingHours());
+        }
+    }
+}
+public class Lecturer extends Teacher {
+    private String Department;
+    private int YearsOfExperience;
+    private int GradeScore;
+    private boolean HasGraded;
+
+    public Lecturer(int TeacherID, String TeacherName, String Address, String EmploymentStatus,
+                    String Department, int YearsOfExperience, String WorkingType) {
+        super(TeacherID, TeacherName, Address, WorkingType, EmploymentStatus);
+        this.Department = Department;
+        this.YearsOfExperience = YearsOfExperience;
+        this.GradeScore = 0;
+        this.HasGraded = false;
+    }
+
+    public String getDepartment() {
+        return this.Department;
+    }
+
+    public int getYearsOfExperience() {
+        return this.YearsOfExperience;
+    }
+
+    public int grtGradeScore() {
+        return this.GradeScore;
+    }
+
+    public boolean HasGraded() {
+        return this.HasGraded;
+    }
+
+    public void setGradeScore(int GradeScore) {
+        this.GradeScore = GradeScore;
+    }
+
+    public void GradeScore(int GradeScore, String Department, int YearsOfExperience) {
+        if (this.YearsOfExperience >= 5 && this.Department.equals(Department)) {
+            if (GradeScore >= 70) {
+                this.GradeScore = GradeScore;
+            } else if (GradeScore >= 60) {
+                this.GradeScore = GradeScore;
+            } else if (GradeScore >= 50) {
+                this.GradeScore = GradeScore;
+            } else if (GradeScore >= 40) {
+                this.GradeScore = GradeScore;
+            } else {
+                this.GradeScore = 0;
+            }
+            HasGraded = true;
+        } else {
+            System.out.println("Lecturer has not graded yet. Please meet the eligibility.");
+        }
+    }
+
+    public void display() {
+        super.display();
+        System.out.println("Department: " + Department);
+        System.out.println("YearsOfExperience: " + YearsOfExperience);
+        if (HasGraded) {
+            System.out.println("HasGraded: " + HasGraded);
+        } else {
+            System.out.println("GradeScore: " + GradeScore);
+        }
+    }
+}
+public class Tutor extends Teacher {
+    private double salary;
+    private String specialization;
+    private String academicQualification;
+    private int performanceIndex;
+    private boolean isCertified;
+
+    public Tutor(int TeacherID, String TeacherName, String Address, String WorkingType,
+                 String EmploymentStatus, int WorkingHours, double salary,
+                 String specialization, String academicQualification, int performanceIndex) {
+        super(TeacherID, TeacherName, Address, WorkingType, EmploymentStatus);
+        this.setWorkingHours(WorkingHours);
+        this.salary = salary;
+        this.specialization = specialization;
+        this.academicQualification = academicQualification;
+        this.performanceIndex = performanceIndex;
+        this.isCertified = false;
+    }
+
+    public double getSalary() {
+        return this.salary;
+    }
+
+    public String getSpecialization() {
+        return this.specialization;
+    }
+
+    public String getAcademicQualification() {
+        return this.academicQualification;
+    }
+
+    public int getPerformanceIndex() {
+        return this.performanceIndex;
+    }
+
+    public boolean getIsCertified() {
+        return this.isCertified;
+    }
+
+    public void setSalary(double newSalary, int newPerformanceIndex) {
+        if (newPerformanceIndex > 5 && super.getWorkingHours() > 20) {
+            double appraisal = 0;
+            if (newPerformanceIndex >= 5 && newPerformanceIndex <= 7) {
+                appraisal = 0.05;
+            } else if (newPerformanceIndex >= 8 && newPerformanceIndex <= 9) {
+                appraisal = 0.1;
+            } else if (newPerformanceIndex == 10) {
+                appraisal = 0.2;
+            }
+            this.salary += appraisal * this.salary;
+            this.isCertified = true;
+        } else {
+            System.out.println("Tutor cannot be certified due to insufficient performanceIndex or WorkingHours.");
+        }
+    }
+
+    public void removeTutor() {
+        if (isCertified) {
+            this.salary = 0;
+            this.specialization = null;
+            this.academicQualification = null;
+            this.performanceIndex = 0;
+            this.isCertified = false;
+            System.out.println("Tutor removed successfully.");
+        } else {
+            System.out.println("Cannot remove certified Tutor.");
+        }
+    }
+
+    public void displayDetails() {
+        super.display();
+        if (isCertified) {
+            System.out.println("Salary: $" + salary);
+            System.out.println("Specialization: " + specialization);
+            System.out.println("Academic Qualification: " + academicQualification);
+            System.out.println("Performance Index: " + performanceIndex);
+        } else {
+            System.out.println("Tutor is not Certified.");
+        }
+    }
+}
